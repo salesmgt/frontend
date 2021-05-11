@@ -343,9 +343,12 @@ function CreateReportsForm(props) {
 
         ReportsServices.addReport(reports)
             .then((data) => {
-                // console.log('data: ', data);               
+                // console.log('data: ', data);
 
-                if (!String(data).includes('already submitted') && !String(data).includes('Created 0 records')) {
+                if (
+                    !String(data).includes('already submitted') &&
+                    !String(data).includes('Created 0 records')
+                ) {
                     setNotify({
                         isOpen: true,
                         message: 'Created successfully.',
@@ -364,7 +367,14 @@ function CreateReportsForm(props) {
                         type: 'error',
                     })
                 }
-                refreshAPI(page, limit, column, direction, searchKey, listFilters)
+                refreshAPI(
+                    page,
+                    limit,
+                    column,
+                    direction,
+                    searchKey,
+                    listFilters
+                )
 
                 handleCloseDialog()
             })
@@ -388,12 +398,13 @@ function CreateReportsForm(props) {
     const calculateSchoolYear = () => {
         const thisYear = new Date().getFullYear()
         const thisMonth = new Date().getMonth()
-        // console.log(`${thisMonth}/${thisYear}`);
+        console.log(`${thisMonth}/${thisYear}`)
         // console.log(`This school year: ${thisYear - 1}-${thisYear}`);
 
         // Từ tháng 5 năm nay tới tháng 5 năm sau: đi sales cho các targets theo năm học sau
         // nên report cũng tính là năm học sau.
-        if (0 <= thisMonth < 4) {   // Jan = 0, May = 4
+        if (0 <= thisMonth < 4) {
+            // Jan = 0, May = 4
             return `${thisYear}-${thisYear + 1}`
         } else if (4 <= thisMonth < 11) {
             return `${thisYear - 1}-${thisYear}`
@@ -607,7 +618,10 @@ function CreateReportsForm(props) {
                                                 variant="contained"
                                                 color="secondary"
                                                 type="submit"
-                                                disabled={ formValue === defaultFormValue }
+                                                disabled={
+                                                    formValue ===
+                                                    defaultFormValue
+                                                }
                                                 // onClick={addReports}
                                             >
                                                 <MdAdd fontSize="large" />

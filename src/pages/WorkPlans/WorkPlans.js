@@ -46,6 +46,21 @@ function WorkPlans() {
                         })
                     }
                 })
+        } else {
+            getPICs({ active: true, fullName: e })
+                .then((data) => {
+                    // console.log('data: ', data)
+                    setListPICs(data)
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        console.log(error)
+                        history.push({
+                            pathname: '/errors',
+                            state: { error: error.response.status },
+                        })
+                    }
+                })
         }
     }
     useEffect(() => {
